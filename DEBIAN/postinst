@@ -1,0 +1,31 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+#
+# kc1mjp-tools package postinst script
+#
+#------------------------------------------------------------------------------
+#--- Main Code
+#------------------------------------------------------------------------------
+
+chown -R root:root /opt/kc1mjp-tools
+
+for directory in $( find /opt/kc1mjp-tools -type d )
+do
+   chmod 0755 ${directory}
+done
+
+for file in $( find /opt/kc1mjp-tools/bin -type f )
+do
+   chmod 0755 ${file}
+done
+
+for file in $( find /opt/kc1mjp-tools/{functions,examples} -type f )
+do
+   chmod 644 ${file}
+done
+
+exit 0
+
+#------------------------------------------------------------------------------
+#--- End Script
+#------------------------------------------------------------------------------

@@ -1,0 +1,7 @@
+Package: kc1mjp-tools
+Version: VERSION
+Architecture: ARCH
+Essential: no
+Maintainer: Michael J. Ford <michael@slashetc.us>
+Installed-Size: INSTSIZE
+Description: Amateur Radio Tools deveoped by KC1MJP
