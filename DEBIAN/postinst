@@ -7,21 +7,24 @@
 #--- Main Code
 #------------------------------------------------------------------------------
 
-chown -R root:root /opt/kc1mjp-tools
+baseDirectory=/opt/kc1mjp-tools
+binDirectory=${baseDirectory}/bin
 
-for directory in $( find /opt/kc1mjp-tools -type d )
+chown -R root:root ${baseDirectory}
+
+for directory in $( find ${baseDirectory} -type d )
 do
    chmod 0755 ${directory}
 done
 
-for file in $( find /opt/kc1mjp-tools/bin -type f )
+for file in $( find ${baseDirectory} -type f )
 do
-   chmod 0755 ${file}
-done
-
-for file in $( find /opt/kc1mjp-tools/{functions,examples} -type f )
-do
-   chmod 644 ${file}
+   if [[ $( dirname ${file} ) == "${binDirectory}" ]]
+   then
+      chmod 0755 ${file}
+   else
+      chmod 0644 ${file}
+   fi
 done
 
 exit 0
