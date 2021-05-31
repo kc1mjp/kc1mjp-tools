@@ -10,6 +10,9 @@
 # LastMod: 20210529 - Michael J. Ford <michael.ford@slashetc.us>
 #     - created
 #
+# LastMod: 20210530 - Michael J. Ford <michael.ford@slashetc.us>
+#     - added more reliable download check
+#
 #------------------------------------------------------------------------------
 # --- Script Config
 #------------------------------------------------------------------------------
@@ -48,9 +51,9 @@
    for backupFile in ${cloudlogFiles[*]}
    do
       wget --quiet ${cloudlogBackupUrl}/${backupFile} -o /tmp/cloudlog_${backupFile}
-      if [[ $? != "0" ]]
+      if [[ ! -f /tmp/cloudlog_${backupFile} ]]
       then
-         echo "FATAL ERROR: Uable to reach ${cloudlogHost}"
+         echo "ERROR: Failed to download ${backupFile}"
          exit 1
       fi
 
@@ -63,6 +66,8 @@
          cp /tmp/cloudlog_${backupFile} ${destinationPath}/cloudlog_${backupFile}
       fi
    done
+
+   rm /tmp/cloudlog_${backupFile}
 
    echo -en "Enter hourly task into ${USER} crontab? y/N: "
    read answer junk
