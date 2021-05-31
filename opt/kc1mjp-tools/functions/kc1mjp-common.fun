@@ -24,6 +24,9 @@ checkScriptConf()
       cp -p /opt/kc1mjp-tools/examples/${scriptConfFile} ${scriptConfDir}/
       echo "INFO: Please Configure: ${scriptConfDir}/${scriptConfFile}"
       exit 99
+   elif [[ -f ${scriptConfDir}/${scriptConfFile} ]]
+   then
+      return 0
    else
       cp -p /opt/kc1mjp-tools/examples/${scriptConfFile} ${scriptConfDir}/
       if [[ $? != "0" ]]
@@ -32,7 +35,7 @@ checkScriptConf()
          exit 1
       else
          echo "INFO: Please Configure [${scriptConfDir}/${scriptConfFile}]"
-         exit 1
+         exit 98
       fi
    fi
 
