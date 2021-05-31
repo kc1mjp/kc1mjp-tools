@@ -39,6 +39,9 @@
 # LastMod: 20210219 - Michael J. Ford <michael.ford@slashetc.us>
 #     - created
 #
+# LastMod: 20210530 - Michael J. Ford <michael.ford@slashetc.us>
+#     - fixed example config directory
+#
 #------------------------------------------------------------------------------
 # --- Script Config
 #------------------------------------------------------------------------------
@@ -46,14 +49,14 @@
    if [[ ! -d ${HOME}/.config/kc1mjp-tools ]]
    then
       mkdir -p ${HOME}/.config/kc1mjp-tools
-      cp -p /opt/kc1mjp-tools/exampleConfigs/radioConfig.conf ${HOME}/.config/kc1mjp-tools/
+      cp -p /opt/kc1mjp-tools/examples/radioConfig.conf ${HOME}/.config/kc1mjp-tools/
       echo "INFO: Please ${HOME}/.config/kc1mjp-tools/radioConfig.conf"
       exit 99
    elif [[ -f ${HOME}/.config/kc1mjp-tools/radioConfig.conf ]]
    then
       . ${HOME}/.config/kc1mjp-tools/radioConfig.conf
    else
-      cp -p /opt/kc1mjp-tools/exampleConfigs/radioConfig.conf ${HOME}/.config/kc1mjp-tools/
+      cp -p /opt/kc1mjp-tools/examples/radioConfig.conf ${HOME}/.config/kc1mjp-tools/
       if [[ $? != "0" ]]
       then
          echo "ERR: Missing/Invalid Configuration file [radioConfig.conf]"
