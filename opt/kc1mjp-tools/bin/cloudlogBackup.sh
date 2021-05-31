@@ -12,6 +12,7 @@
 #
 # LastMod: 20210530 - Michael J. Ford <michael.ford@slashetc.us>
 #     - added more reliable download check
+#     - fixed case statement (still greasing the gears)
 #
 #------------------------------------------------------------------------------
 # --- Script Config
@@ -57,8 +58,8 @@
          exit 1
       fi
 
-      md5New="$( md5sum /tmp/cloudlog_${backupFile} )"
-      md5Old="$( md5sum ${destinationPath}/cloudlog_${backupFile} )"
+      md5New="$( md5sum /tmp/cloudlog_${backupFile} 2>/dev/null )"
+      md5Old="$( md5sum ${destinationPath}/cloudlog_${backupFile} 2>/dev/null )"
       if [[ ${md5New} == "${md5Old}" ]]
       then
          echo "INFO: ${backupFile} exists"
@@ -72,13 +73,13 @@
    echo -en "Enter hourly task into ${USER} crontab? y/N: "
    read answer junk
    case answer in
-      yY)   if ! crontab -l | grep -q cloudlogBackup.sh
+      y|Y)   if ! crontab -l | grep -q cloudlogBackup.sh
             then
                echo "0 * * * * /opt/kc1mjp-tools/bin/cloudlogBackup.sh &>/dev/null" | crontab -
             else
                echo "INFO: Crontab Exists"
             fi ;;
-      nN)   echo "No Crontab Changed"  ;;
+      n|N)   echo "No Crontab Changed"  ;;
       *)    echo "ERR Invalid Input"   ;;
    esac
 
